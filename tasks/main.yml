@@ -1,0 +1,18 @@
+---
+# File: main.yml
+# Type: task
+# Part: Redis
+
+## Install
+- include: install/main.yml
+  tags: [database_redis, database_redis_install]
+
+## Configure
+- include: configure/main.yml
+  tags: [database_redis, database_redis_configure]
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version|int <= 14
+
+## Service
+- include: service/main.yml
+  tags: [database_redis, database_redis_service]
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version|int <= 14
